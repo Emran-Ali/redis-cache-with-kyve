@@ -1,10 +1,23 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Controller, Get, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Controller('sample')
 export class SampleController {
   constructor(@Inject(CACHE_MANAGER) private cache: Cache) {}
+
+  onModuleInit() {
+    console.log('onModuleInit');
+  }
+  onModuleDestroy() {
+    console.log('onModuleDestroy');
+  }
+  onApplicationShutdown() {
+    console.log('onApplicationShutdown called');
+  }
+  beforeApplicationShutdown() {
+    console.log('beforApplicationShutdown');
+  }
   @Get()
   async getData() {
     const cacheKey = 'sample-data111';
